@@ -4,7 +4,6 @@ namespace Kiboko\Component\Flow\JSON;
 
 use Kiboko\Component\Bucket\AcceptanceResultBucket;
 use Kiboko\Contract\Pipeline\LoaderInterface;
-use Psr\Log\LoggerInterface;
 
 class Loader implements LoaderInterface
 {
@@ -13,6 +12,9 @@ class Loader implements LoaderInterface
     ) {
     }
 
+    /**
+     * @return \Generator
+     */
     public function load(): \Generator
     {
         $line = yield;

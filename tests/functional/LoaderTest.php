@@ -3,13 +3,16 @@
 namespace functional\Kiboko\Component\Flow\JSON;
 
 use Kiboko\Component\Flow\JSON\Loader;
-use Kiboko\Component\PHPUnitExtension\PipelineAssertTrait;
+use Kiboko\Component\PHPUnitExtension\Assert\LoaderAssertTrait;
+use Kiboko\Component\Pipeline\PipelineRunner;
+use Kiboko\Contract\Pipeline\PipelineRunnerInterface;
 use PHPUnit\Framework\TestCase;
+use Psr\Log\NullLogger;
 use Vfs\FileSystem;
 
 class LoaderTest extends TestCase
 {
-    use PipelineAssertTrait;
+    use LoaderAssertTrait;
 
     private ?FileSystem $fs = null;
 
@@ -29,7 +32,7 @@ class LoaderTest extends TestCase
     {
         $loader = new Loader(new \SplFileObject('vfs://output.jsonld', 'w'));
 
-        $this->assertPipelineLoadsLike(
+        $this->assertLoaderLoadsLike(
             [
                 [
                     [
@@ -66,5 +69,12 @@ class LoaderTest extends TestCase
         );
 
         $this->assertFileEquals(__DIR__.'/data/users.jsonld', 'vfs://output.jsonld');
+    }
+
+    public function pipelineRunner(): PipelineRunnerInterface
+    {
+        return new \Kiboko\Component\Pipeline\PipelineRunner(
+            new NullLogger()
+        );
     }
 }
