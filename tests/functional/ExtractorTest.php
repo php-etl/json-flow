@@ -6,7 +6,6 @@ use Kiboko\Component\Flow\JSON\Extractor;
 use Kiboko\Component\PHPUnitExtension\Assert\ExtractorAssertTrait;
 use Kiboko\Contract\Pipeline\PipelineRunnerInterface;
 use PHPUnit\Framework\TestCase;
-use Psr\Log\NullLogger;
 use Vfs\FileSystem;
 
 class ExtractorTest extends TestCase
@@ -54,8 +53,6 @@ class ExtractorTest extends TestCase
 
     public function pipelineRunner(): PipelineRunnerInterface
     {
-        return new \Kiboko\Component\Pipeline\PipelineRunner(
-            new NullLogger()
-        );
+        return new PipelineRunner();
     }
 }
