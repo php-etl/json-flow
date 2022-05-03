@@ -3,13 +3,14 @@
 namespace functional\Kiboko\Component\Flow\JSON;
 
 use Kiboko\Component\Flow\JSON\Extractor;
-use Kiboko\Component\PHPUnitExtension\PipelineAssertTrait;
+use Kiboko\Component\PHPUnitExtension\Assert\ExtractorAssertTrait;
+use Kiboko\Contract\Pipeline\PipelineRunnerInterface;
 use PHPUnit\Framework\TestCase;
 use Vfs\FileSystem;
 
 class ExtractorTest extends TestCase
 {
-    use PipelineAssertTrait;
+    use ExtractorAssertTrait;
 
     private ?FileSystem $fs = null;
 
@@ -29,7 +30,7 @@ class ExtractorTest extends TestCase
     {
         $extractor = new Extractor(new \SplFileObject(__DIR__.'/data/users.jsonld'));
 
-        $this->assertPipelineExtractsLike(
+        $this->assertExtractorExtractsLike(
             [
                 [
                     [
@@ -48,5 +49,10 @@ class ExtractorTest extends TestCase
             ],
             $extractor,
         );
+    }
+
+    public function pipelineRunner(): PipelineRunnerInterface
+    {
+        return new PipelineRunner();
     }
 }
