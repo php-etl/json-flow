@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Kiboko\Component\Flow\JSON;
 
 use Kiboko\Component\Bucket\AcceptanceResultBucket;
@@ -12,15 +14,12 @@ class Loader implements LoaderInterface
     ) {
     }
 
-    /**
-     * @return \Generator
-     */
     public function load(): \Generator
     {
         $line = yield;
 
         while (true) {
-            $this->file->fwrite(json_encode($line) . "\n");
+            $this->file->fwrite(json_encode($line)."\n");
 
             $line = yield new AcceptanceResultBucket($line);
         }
