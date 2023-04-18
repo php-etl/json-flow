@@ -17,7 +17,7 @@ readonly class Extractor implements ExtractorInterface
     public function extract(): iterable
     {
         while (!$this->file->eof()) {
-            yield new AcceptanceResultBucket(json_decode($this->file->fgets(), true));
+            yield new AcceptanceResultBucket(json_decode($this->file->fgets(), true, 512, \JSON_ERROR_NONE));
         }
     }
 }
