@@ -19,7 +19,7 @@ class Loader implements LoaderInterface
         $line = yield;
 
         while (true) {
-            $this->file->fwrite(json_encode($line, JSON_THROW_ON_ERROR)."\n");
+            $this->file->fwrite(json_encode($line, \JSON_THROW_ON_ERROR)."\n");
 
             $line = yield new AcceptanceResultBucket($line);
         }
