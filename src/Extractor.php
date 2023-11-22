@@ -19,6 +19,7 @@ readonly class Extractor implements ExtractorInterface
 
     public function extract(): iterable
     {
+        $data = null;
         while (!$this->file->eof()) {
             try {
                 $data = json_decode($this->file->fgets(), true, 512, \JSON_ERROR_NONE);
