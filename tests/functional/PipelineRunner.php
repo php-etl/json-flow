@@ -9,18 +9,17 @@ use Kiboko\Contract\Bucket\RejectionResultBucketInterface;
 use Kiboko\Contract\Pipeline\PipelineRunnerInterface;
 use Kiboko\Contract\Pipeline\RejectionInterface;
 use Kiboko\Contract\Pipeline\StateInterface;
+use Kiboko\Contract\Pipeline\StepRejectionInterface;
+use Kiboko\Contract\Pipeline\StepStateInterface;
 
 final class PipelineRunner implements PipelineRunnerInterface
 {
     public function run(
         \Iterator $source,
         \Generator $async,
-        RejectionInterface $rejection,
-        StateInterface $state,
+        StepRejectionInterface $rejection,
+        StepStateInterface $state,
     ): \Iterator {
-        $state->initialize();
-        $rejection->initialize();
-
         $source->rewind();
         $async->rewind();
 
@@ -40,8 +39,5 @@ final class PipelineRunner implements PipelineRunnerInterface
 
             $source->next();
         }
-
-        $rejection->teardown();
-        $state->teardown();
     }
 }
