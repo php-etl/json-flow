@@ -19,8 +19,7 @@ final class PipelineRunner implements PipelineRunnerInterface
         \Generator $async,
         StepRejectionInterface $rejection,
         StepStateInterface $state,
-    ): \Iterator
-    {
+    ): \Iterator {
         $source->rewind();
         $async->rewind();
 
